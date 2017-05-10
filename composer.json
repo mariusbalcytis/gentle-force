@@ -1,0 +1,34 @@
+{
+    "name": "maba/gentle-force",
+    "description": "Library for limiting both brute-force attempts and ordinary requests, using leaky/token bucket algorithm, based on Redis",
+    "keywords": ["rate limiter", "rate limiting", "rate limit", "brute force protection", "leaky bucket", "token bucket", "threshold", "throttle", "security", "dos protection", "brute-force", "bruteforce"],
+    "type": "library",
+    "require": {
+        "php": "^5.5 | ^7.0",
+        "predis/predis": "^1.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.2",
+        "phpunit/phpunit": "^4.0",
+        "misterion/ko-process": "^0.5.3",
+        "symfony/stopwatch": "^3.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marius Balčytis",
+            "email": "marius.balcytis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Maba\\GentleForce\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Maba\\GentleForce\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev"
+}
