@@ -16,7 +16,7 @@ class FunctionalTest extends TestCase
     const USE_CASE_KEY = 'use_case_key';
     const ID = 'user1';
     const ANOTHER_ID = 'user2';
-    const ERROR_CORRECTION_PERIOD_MS = 50;
+    const ERROR_CORRECTION_PERIOD_MS = 70;
 
     /**
      * @var Throttler
@@ -124,7 +124,7 @@ class FunctionalTest extends TestCase
         $rateLimitProvider->registerRateLimits(self::USE_CASE_KEY, $rateLimits);
 
         $this->throttler = new Throttler(new Client([
-            'host' => $_ENV['REDIS_HOST'],
+            'host' => isset($_ENV['REDIS_HOST']) ? $_ENV['REDIS_HOST'] : 'localhost',
         ]), $rateLimitProvider, $prefix);
 
         $this->event = (new Stopwatch())->start('');

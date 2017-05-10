@@ -71,7 +71,7 @@ class RaceConditionsTest extends TestCase
         $rateLimitProvider->registerRateLimits(self::USE_CASE_KEY, $rateLimits);
 
         $this->throttler = new Throttler(new Client([
-            'host' => 'redis',
+            'host' => isset($_ENV['REDIS_HOST']) ? $_ENV['REDIS_HOST'] : 'localhost',
         ]), $rateLimitProvider, $prefix);
 
         $this->event = (new Stopwatch())->start('');
