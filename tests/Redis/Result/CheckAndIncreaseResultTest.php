@@ -3,7 +3,7 @@
 namespace Maba\GentleForce\Tests\Redis\Result;
 
 use Maba\GentleForce\Redis\Result\CheckAndIncreaseResult;
-use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 
 class CheckAndIncreaseResultTest extends TestCase
 {

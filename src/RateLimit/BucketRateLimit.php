@@ -19,7 +19,7 @@ class BucketRateLimit implements RateLimitInterface
     private $tokensPerUsage;
 
     /**
-     * Tokens issed every second.
+     * Tokens issued every second.
      *
      * @var float
      */

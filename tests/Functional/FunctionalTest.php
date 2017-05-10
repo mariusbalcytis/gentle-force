@@ -6,7 +6,7 @@ use Maba\GentleForce\Exception\RateLimitReachedException;
 use Maba\GentleForce\RateLimit\UsageRateLimit;
 use Maba\GentleForce\RateLimitProvider;
 use Maba\GentleForce\Throttler;
-use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use Predis\Client;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
@@ -16,7 +16,7 @@ class FunctionalTest extends TestCase
     const USE_CASE_KEY = 'use_case_key';
     const ID = 'user1';
     const ANOTHER_ID = 'user2';
-    const ERROR_CORRECTION_PERIOD_MS = 70;
+    const ERROR_CORRECTION_PERIOD_MS = 60;
 
     /**
      * @var Throttler

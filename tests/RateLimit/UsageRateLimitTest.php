@@ -4,7 +4,7 @@ namespace Maba\GentleForce\Tests\RateLimit;
 
 use InvalidArgumentException;
 use Maba\GentleForce\RateLimit\UsageRateLimit;
-use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 
 class UsageRateLimitTest extends TestCase
 {

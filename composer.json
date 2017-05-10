@@ -9,7 +9,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.2",
-        "phpunit/phpunit": "^4.0",
+        "phpunit/phpunit": "^4.8",
         "misterion/ko-process": "^0.5.3",
         "symfony/stopwatch": "^3.2"
     },
