@@ -8,6 +8,8 @@ services:
     - redis
     volumes:
     - ..:/app
+    environment:
+        REDIS_HOST: redis
     command: [tail, '-f', /dev/null]
     working_dir: /app
   redis:

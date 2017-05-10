@@ -16,7 +16,7 @@ class FunctionalTest extends TestCase
     const USE_CASE_KEY = 'use_case_key';
     const ID = 'user1';
     const ANOTHER_ID = 'user2';
-    const ERROR_CORRECTION_PERIOD_MS = 30;
+    const ERROR_CORRECTION_PERIOD_MS = 50;
 
     /**
      * @var Throttler
@@ -31,12 +31,12 @@ class FunctionalTest extends TestCase
     public function testWithoutBucketedUsages()
     {
         $this->setUpThrottler([
-            new UsageRateLimit(10, 2),
+            new UsageRateLimit(10, 4),
         ]);
 
         $this->assertUsagesValid(10);
 
-        $this->sleepUpTo(200);
+        $this->sleepUpTo(400);
 
         $this->assertUsagesValid(1);
     }
@@ -44,12 +44,12 @@ class FunctionalTest extends TestCase
     public function testWithBucketedUsages()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(10, 2))->setBucketedUsages(10),
+            (new UsageRateLimit(10, 4))->setBucketedUsages(10),
         ]);
 
         $this->assertUsagesValid(20);
 
-        $this->sleepUpTo(200);
+        $this->sleepUpTo(400);
 
         $this->assertUsagesValid(1);
     }
@@ -57,40 +57,40 @@ class FunctionalTest extends TestCase
     public function testWithSeveralLimits()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(2, 0.3))->setBucketedUsages(3),
-            (new UsageRateLimit(1, 0.5))->setBucketedUsages(5),
+            (new UsageRateLimit(2, 0.6))->setBucketedUsages(3),
+            (new UsageRateLimit(1, 1))->setBucketedUsages(5),
         ]);
 
         $this->assertUsagesValid(5);
 
-        $this->sleepUpTo(150);
+        $this->sleepUpTo(300);
         $this->assertUsagesValid(1);
 
-        $this->sleepUpTo(450);
+        $this->sleepUpTo(900);
         $this->assertUsagesValid(0);
 
-        $this->sleepUpTo(500);
+        $this->sleepUpTo(1000);
         $this->assertUsagesValid(1);
     }
 
     public function testWithDecreasing()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(2, 0.3))->setBucketedUsages(3),
-            (new UsageRateLimit(1, 0.5))->setBucketedUsages(5),
+            (new UsageRateLimit(2, 0.6))->setBucketedUsages(3),
+            (new UsageRateLimit(1, 1))->setBucketedUsages(5),
         ]);
 
         $this->checkAndIncrease()->decrease();
         $this->assertUsagesValid(5);
 
-        $this->sleepUpTo(150);
+        $this->sleepUpTo(300);
         $this->checkAndIncrease()->decrease();
         $this->assertUsagesValid(1);
 
-        $this->sleepUpTo(450);
+        $this->sleepUpTo(900);
         $this->assertUsagesValid(0);
 
-        $this->sleepUpTo(500);
+        $this->sleepUpTo(1000);
         $this->checkAndIncrease()->decrease();
         $this->assertUsagesValid(1);
     }
@@ -98,15 +98,15 @@ class FunctionalTest extends TestCase
     public function testWithReset()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(2, 0.3))->setBucketedUsages(3),
-            (new UsageRateLimit(1, 0.5))->setBucketedUsages(5),
+            (new UsageRateLimit(2, 0.6))->setBucketedUsages(3),
+            (new UsageRateLimit(1, 1))->setBucketedUsages(5),
         ]);
 
         $this->assertUsagesValid(5);
         $this->reset();
         $this->assertUsagesValid(5);
 
-        $this->sleepUpTo(150);
+        $this->sleepUpTo(300);
         $this->assertUsagesValid(1);
 
         $this->reset();
@@ -124,7 +124,7 @@ class FunctionalTest extends TestCase
         $rateLimitProvider->registerRateLimits(self::USE_CASE_KEY, $rateLimits);
 
         $this->throttler = new Throttler(new Client([
-            'host' => 'redis',
+            'host' => $_ENV['REDIS_HOST'],
         ]), $rateLimitProvider, $prefix);
 
         $this->event = (new Stopwatch())->start('');
