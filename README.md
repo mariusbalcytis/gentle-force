@@ -125,6 +125,8 @@ information about what can be changed and what not in the API.
 
 ## Running tests
 
+[![Travis status](https://travis-ci.org/mariusbalcytis/gentle-force.svg?branch=master)](https://travis-ci.org/mariusbalcytis/gentle-force)
+
 Functional tests require Redis and several PHP extensions for forking,
 so that behaviour on high traffic could be tested. So, generally,
 it's easier to run them in docker.

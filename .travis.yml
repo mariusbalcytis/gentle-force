@@ -46,5 +46,5 @@ before_script:
     - bash -c "composer update $COMPOSER_ARGS"
 
 script:
-    - vendor/bin/codecept run
+    - vendor/bin/phpunit
     - if [[ "$WITH_CS" == "true" ]]; then vendor/bin/php-cs-fixer fix --config=.php_cs -v --dry-run --stop-on-violation --using-cache=no --path-mode=intersection "${COMMIT_SCA_FILES[@]}"; fi
