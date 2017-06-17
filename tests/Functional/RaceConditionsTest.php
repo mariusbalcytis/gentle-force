@@ -8,6 +8,7 @@ use Maba\GentleForce\Exception\RateLimitReachedException;
 use Maba\GentleForce\RateLimit\UsageRateLimit;
 use Maba\GentleForce\RateLimitProvider;
 use Maba\GentleForce\Throttler;
+use Maba\GentleForce\ThrottlerInterface;
 use PHPUnit_Framework_TestCase as TestCase;
 use Predis\Client;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -19,7 +20,7 @@ class RaceConditionsTest extends TestCase
     const ID = 'user1';
 
     /**
-     * @var Throttler
+     * @var ThrottlerInterface
      */
     private $throttler;
 

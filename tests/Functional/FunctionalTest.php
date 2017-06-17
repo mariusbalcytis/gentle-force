@@ -6,6 +6,7 @@ use Maba\GentleForce\Exception\RateLimitReachedException;
 use Maba\GentleForce\RateLimit\UsageRateLimit;
 use Maba\GentleForce\RateLimitProvider;
 use Maba\GentleForce\Throttler;
+use Maba\GentleForce\ThrottlerInterface;
 use PHPUnit_Framework_TestCase as TestCase;
 use Predis\Client;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -19,7 +20,7 @@ class FunctionalTest extends TestCase
     const ERROR_CORRECTION_PERIOD_MS = 60;
 
     /**
-     * @var Throttler
+     * @var ThrottlerInterface
      */
     private $throttler;
 
@@ -118,16 +119,20 @@ class FunctionalTest extends TestCase
 
     private function setUpThrottler($rateLimits)
     {
-        $prefix = 'functional_test_' . microtime();
-
         $rateLimitProvider = new RateLimitProvider();
         $rateLimitProvider->registerRateLimits(self::USE_CASE_KEY, $rateLimits);
 
-        $this->throttler = new Throttler(new Client([
-            'host' => isset($_ENV['REDIS_HOST']) ? $_ENV['REDIS_HOST'] : 'localhost',
-        ]), $rateLimitProvider, $prefix);
+        $this->throttler = $this->createThrottler($rateLimitProvider);
 
         $this->event = (new Stopwatch())->start('');
+    }
+
+    protected function createThrottler(RateLimitProvider $rateLimitProvider)
+    {
+        $prefix = 'functional_test_' . microtime();
+        return new Throttler(new Client([
+            'host' => isset($_ENV['REDIS_HOST']) ? $_ENV['REDIS_HOST'] : 'localhost',
+        ]), $rateLimitProvider, $prefix);
     }
 
     private function assertUsagesValid($countOfUsages)

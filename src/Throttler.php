@@ -8,7 +8,7 @@ use Maba\GentleForce\Redis\Command\DecreaseCommand;
 use Maba\GentleForce\Redis\Result\CheckAndIncreaseResult;
 use Predis\Client;
 
-class Throttler
+class Throttler implements ThrottlerInterface
 {
     private $client;
     private $rateLimitProvider;

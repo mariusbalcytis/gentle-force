@@ -118,7 +118,7 @@ Some of reviewed alternatives:
 
 ## Semantic versioning
 
-This bundle follows [semantic versioning](http://semver.org/spec/v2.0.0.html).
+This library follows [semantic versioning](http://semver.org/spec/v2.0.0.html).
 
 See [Symfony BC rules](http://symfony.com/doc/current/contributing/code/bc.html) for basic
 information about what can be changed and what not in the API.
@@ -132,6 +132,7 @@ so that behaviour on high traffic could be tested. So, generally,
 it's easier to run them in docker.
 
 ```
+composer update
 cd docker
 docker-compose up -d
 docker exec -it gentle_force_test_php vendor/bin/phpunit

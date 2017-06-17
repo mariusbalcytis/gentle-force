@@ -9,7 +9,7 @@ class IncreaseResult
     private $useCaseKey;
     private $identifier;
 
-    public function __construct(Throttler $throttler, $usagesAvailable, $useCaseKey, $identifier)
+    public function __construct(ThrottlerInterface $throttler, $usagesAvailable, $useCaseKey, $identifier)
     {
         $this->throttler = $throttler;
         $this->usagesAvailable = $usagesAvailable;
