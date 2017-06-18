@@ -8,7 +8,6 @@ use Maba\GentleForce\RateLimitProvider;
 
 class FunctionalInMemoryThrottlerTest extends FunctionalTest
 {
-
     protected function createThrottler(RateLimitProvider $rateLimitProvider)
     {
         return new InMemoryThrottler($rateLimitProvider, new MicrotimeProvider());
