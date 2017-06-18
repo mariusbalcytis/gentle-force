@@ -61,20 +61,20 @@ class InMemoryThrottler implements ThrottlerInterface
             }
 
             $totals[$subKey] = $total;
-            $usagesAvailable[$subKey] = $total / $tokensPerUsage;
+            $usagesAvailable[$subKey] = ($bucketSize - $total) / $tokensPerUsage;
         }
 
         if ($validAfter > 0) {
             throw new RateLimitReachedException($validAfter);
         }
 
-        $maxUsagesAvailable = 0;
+        $minUsagesAvailable = INF;
         foreach ($totals as $subKey => $total) {
             $this->storage[$key][$subKey] = $now + $total;
-            $maxUsagesAvailable = max($maxUsagesAvailable, $usagesAvailable[$subKey]);
+            $minUsagesAvailable = min($minUsagesAvailable, $usagesAvailable[$subKey]);
         }
 
-        return new IncreaseResult($this, floor($maxUsagesAvailable), $useCaseKey, $identifier);
+        return new IncreaseResult($this, (int)floor($minUsagesAvailable), $useCaseKey, $identifier);
     }
 
     /**

@@ -25,7 +25,7 @@ for i, parameters in ipairs(parametersList) do
 
     table.insert(totals, total)
     table.insert(sub_keys, sub_key)
-    table.insert(usages_available, total / tokens_per_usage)
+    table.insert(usages_available, (bucket_size - total) / tokens_per_usage)
 end
 
 if valid_after > 0 then
@@ -33,13 +33,13 @@ if valid_after > 0 then
 end
 
 local longest_duration = 0
-local max_usages_available = 0
+local min_usages_available = math.huge
 for i, total in ipairs(totals) do
     redis.call('HSET', key, sub_keys[i], now + total)
     longest_duration = math.max(longest_duration, total)
-    max_usages_available = math.max(max_usages_available, usages_available[i])
+    min_usages_available = math.min(min_usages_available, usages_available[i])
 end
 
 redis.call('EXPIRE', key, math.ceil(longest_duration))
 
-return tostring(math.floor(max_usages_available))
+return tostring(math.floor(min_usages_available))

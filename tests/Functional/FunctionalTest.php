@@ -137,8 +137,9 @@ class FunctionalTest extends TestCase
 
     private function assertUsagesValid($countOfUsages)
     {
-        for ($i = 0; $i < $countOfUsages; $i++) {
-            $this->checkAndIncrease();
+        for ($i = 1; $i <= $countOfUsages; $i++) {
+            $result = $this->checkAndIncrease();
+            $this->assertSame($countOfUsages - $i, $result->getUsagesAvailable());
         }
 
         $this->checkAndIncrease(self::ANOTHER_ID);

@@ -13,7 +13,7 @@ class CheckAndIncreaseResult
     private $waitForInSeconds;
 
     /**
-     * @var float|null
+     * @var int|null
      */
     private $usagesAvailable;
 
@@ -27,7 +27,7 @@ class CheckAndIncreaseResult
     public static function createForAvailableUsages($usagesAvailable)
     {
         $result = new self();
-        $result->usagesAvailable = $usagesAvailable;
+        $result->usagesAvailable = (int)$usagesAvailable;
         return $result;
     }
 
