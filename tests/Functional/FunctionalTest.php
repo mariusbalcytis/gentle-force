@@ -32,12 +32,12 @@ class FunctionalTest extends TestCase
     public function testWithoutBucketedUsages()
     {
         $this->setUpThrottler([
-            new UsageRateLimit(10, 4),
+            new UsageRateLimit(10, 6),
         ]);
 
         $this->assertUsagesValid(10);
 
-        $this->sleepUpTo(400);
+        $this->sleepUpTo(600);
 
         $this->assertUsagesValid(1);
     }
@@ -45,12 +45,12 @@ class FunctionalTest extends TestCase
     public function testWithBucketedUsages()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(10, 4))->setBucketedUsages(10),
+            (new UsageRateLimit(10, 6))->setBucketedUsages(10),
         ]);
 
         $this->assertUsagesValid(20);
 
-        $this->sleepUpTo(400);
+        $this->sleepUpTo(600);
 
         $this->assertUsagesValid(1);
     }
@@ -58,40 +58,40 @@ class FunctionalTest extends TestCase
     public function testWithSeveralLimits()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(2, 0.6))->setBucketedUsages(3),
-            (new UsageRateLimit(1, 1))->setBucketedUsages(5),
+            (new UsageRateLimit(2, 1.2))->setBucketedUsages(3),
+            (new UsageRateLimit(1, 2))->setBucketedUsages(5),
         ]);
 
         $this->assertUsagesValid(5);
 
-        $this->sleepUpTo(300);
+        $this->sleepUpTo(600);
         $this->assertUsagesValid(1);
 
-        $this->sleepUpTo(900);
+        $this->sleepUpTo(1800);
         $this->assertUsagesValid(0);
 
-        $this->sleepUpTo(1000);
+        $this->sleepUpTo(2000);
         $this->assertUsagesValid(1);
     }
 
     public function testWithDecreasing()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(2, 0.6))->setBucketedUsages(3),
-            (new UsageRateLimit(1, 1))->setBucketedUsages(5),
+            (new UsageRateLimit(2, 1.2))->setBucketedUsages(3),
+            (new UsageRateLimit(1, 2))->setBucketedUsages(5),
         ]);
 
         $this->checkAndIncrease()->decrease();
         $this->assertUsagesValid(5);
 
-        $this->sleepUpTo(300);
+        $this->sleepUpTo(600);
         $this->checkAndIncrease()->decrease();
         $this->assertUsagesValid(1);
 
-        $this->sleepUpTo(900);
+        $this->sleepUpTo(1800);
         $this->assertUsagesValid(0);
 
-        $this->sleepUpTo(1000);
+        $this->sleepUpTo(2000);
         $this->checkAndIncrease()->decrease();
         $this->assertUsagesValid(1);
     }
@@ -99,15 +99,15 @@ class FunctionalTest extends TestCase
     public function testWithReset()
     {
         $this->setUpThrottler([
-            (new UsageRateLimit(2, 0.6))->setBucketedUsages(3),
-            (new UsageRateLimit(1, 1))->setBucketedUsages(5),
+            (new UsageRateLimit(2, 1.2))->setBucketedUsages(3),
+            (new UsageRateLimit(1, 2))->setBucketedUsages(5),
         ]);
 
         $this->assertUsagesValid(5);
         $this->reset();
         $this->assertUsagesValid(5);
 
-        $this->sleepUpTo(300);
+        $this->sleepUpTo(600);
         $this->assertUsagesValid(1);
 
         $this->reset();
