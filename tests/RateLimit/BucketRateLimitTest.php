@@ -3,7 +3,7 @@
 namespace Maba\GentleForce\Tests\RateLimit;
 
 use Maba\GentleForce\RateLimit\BucketRateLimit;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BucketRateLimitTest extends TestCase
 {
