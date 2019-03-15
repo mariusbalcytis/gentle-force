@@ -4,7 +4,7 @@ namespace Maba\GentleForce\Tests\RateLimit;
 
 use InvalidArgumentException;
 use Maba\GentleForce\RateLimit\UsageRateLimit;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class UsageRateLimitTest extends TestCase
 {
@@ -99,6 +99,7 @@ class UsageRateLimitTest extends TestCase
 
     /**
      * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Cannot set both bucketed usages and bucketed period
      */
     public function testWithBucketedPeriodAndUsages()
     {
@@ -109,6 +110,7 @@ class UsageRateLimitTest extends TestCase
 
     /**
      * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Cannot set both bucketed usages and bucketed period
      */
     public function testWithBucketedUsagesAndPeriod()
     {
