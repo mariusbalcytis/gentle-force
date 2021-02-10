@@ -4,7 +4,7 @@
     "keywords": ["rate limiter", "rate limiting", "rate limit", "brute force protection", "leaky bucket", "token bucket", "threshold", "throttle", "security", "dos protection", "brute-force", "bruteforce"],
     "type": "library",
     "require": {
-        "php": "^5.5 | ^7.0",
+        "php": ">=7.0",
         "predis/predis": "^1.1"
     },
     "require-dev": {
