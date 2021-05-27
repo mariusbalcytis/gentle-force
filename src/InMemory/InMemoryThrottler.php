@@ -68,7 +68,7 @@ class InMemoryThrottler implements ThrottlerInterface
             throw new RateLimitReachedException($validAfter);
         }
 
-        $minUsagesAvailable = INF;
+        $minUsagesAvailable = \INF;
         foreach ($totals as $subKey => $total) {
             $this->storage[$key][$subKey] = $now + $total;
             $minUsagesAvailable = min($minUsagesAvailable, $usagesAvailable[$subKey]);

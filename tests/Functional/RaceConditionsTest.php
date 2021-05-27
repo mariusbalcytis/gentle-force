@@ -2,22 +2,20 @@
 
 namespace Maba\GentleForce\Tests\Functional;
 
-use Ko\ProcessManager;
-use Ko\SharedMemory;
 use Maba\GentleForce\Exception\RateLimitReachedException;
 use Maba\GentleForce\RateLimit\UsageRateLimit;
 use Maba\GentleForce\RateLimitProvider;
 use Maba\GentleForce\Throttler;
 use Maba\GentleForce\ThrottlerInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Predis\Client;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class RaceConditionsTest extends TestCase
 {
-    const USE_CASE_KEY = 'use_case_key';
-    const ID = 'user1';
+    public const USE_CASE_KEY = 'use_case_key';
+    public const ID = 'user1';
 
     /**
      * @var ThrottlerInterface
@@ -46,19 +44,15 @@ class RaceConditionsTest extends TestCase
             (new UsageRateLimit($maxUsages, 10 * $maxUsages)),
         ]);
 
-        $manager = new ProcessManager();
-        $memory = new SharedMemory(10E3);
-
-        for ($i = 0; $i < 100; $i++) {
-            $manager->fork(function () use ($i, $memory) {
-                $memory[$i] = $this->getAvailableUsageCount();
-            });
-        }
-        $manager->wait();
-
+        $results = Forker::map(
+            range(0, 100),
+            function ($index) {
+                return $this->getAvailableUsageCount();
+            }
+        );
         $totalCount = 0;
-        for ($i = 0; $i < count($memory); $i++) {
-            $totalCount += $memory[$i];
+        for ($i = 0; $i < \count($results); $i++) {
+            $totalCount += $results[$i];
         }
 
         $this->assertSame($maxUsages, $totalCount);

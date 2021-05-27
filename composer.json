@@ -4,15 +4,14 @@
     "keywords": ["rate limiter", "rate limiting", "rate limit", "brute force protection", "leaky bucket", "token bucket", "threshold", "throttle", "security", "dos protection", "brute-force", "bruteforce"],
     "type": "library",
     "require": {
-        "php": "^5.5 | ^7.0",
+        "php": "^7.1 | ^8.0",
         "predis/predis": "^1.1"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.2",
-        "phpunit/phpunit": "^4.8.36",
-        "sebastian/comparator": "^1.2.4",
-        "misterion/ko-process": "^0.5.3",
-        "symfony/stopwatch": "^3.2"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpunit/phpunit": "7.5 | ^8.5 | ^9.5",
+        "sebastian/comparator": "^3.0 | ^4.0",
+        "symfony/stopwatch": "^4.4 | ^5.2"
     },
     "license": "MIT",
     "authors": [

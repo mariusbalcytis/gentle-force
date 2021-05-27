@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   php:
     container_name: gentle_force_test_php
