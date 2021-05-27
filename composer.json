@@ -11,7 +11,6 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpunit/phpunit": "7.5 | ^8.5 | ^9.5",
         "sebastian/comparator": "^3.0 | ^4.0",
-        "misterion/ko-process": "^0.5.3",
         "symfony/stopwatch": "^4.4 | ^5.2"
     },
     "license": "MIT",
