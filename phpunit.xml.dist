@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit colors="true" bootstrap="vendor/autoload.php">
+<phpunit colors="true" verbose="true" bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite>
+        <testsuite name="gentle force tests" >
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <directory>./src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 </phpunit>

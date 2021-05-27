@@ -9,15 +9,15 @@ use Maba\GentleForce\RateLimit\UsageRateLimit;
 use Maba\GentleForce\RateLimitProvider;
 use Maba\GentleForce\Throttler;
 use Maba\GentleForce\ThrottlerInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Predis\Client;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class RaceConditionsTest extends TestCase
 {
-    const USE_CASE_KEY = 'use_case_key';
-    const ID = 'user1';
+    public const USE_CASE_KEY = 'use_case_key';
+    public const ID = 'user1';
 
     /**
      * @var ThrottlerInterface
@@ -57,7 +57,7 @@ class RaceConditionsTest extends TestCase
         $manager->wait();
 
         $totalCount = 0;
-        for ($i = 0; $i < count($memory); $i++) {
+        for ($i = 0; $i < \count($memory); $i++) {
             $totalCount += $memory[$i];
         }
 
