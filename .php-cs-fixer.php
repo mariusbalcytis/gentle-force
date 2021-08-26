@@ -3,20 +3,20 @@ $finder = PhpCsFixer\Finder::create()
     ->in('src')
     ->in('tests')
 ;
-return PhpCsFixer\Config::create()
-    ->setRules(array(
+$config = new PhpCsFixer\Config();
+return $config->setRules(array(
         '@Symfony' => true,
         '@Symfony:risky' => true,
         // override some Symfony rules
-        'blank_line_before_return' => false,
+        'blank_line_before_statement' => false,
         'cast_spaces' => false,
         'concat_space' => array('spacing' => 'one'),
-        'is_null' => array('use_yoda_style' => false),
+        'yoda_style' => false,
         'no_singleline_whitespace_before_semicolons' => false,
         'phpdoc_align' => false,
         'phpdoc_separation' => false,
         'php_unit_fqcn_annotation' => false,
-        'pre_increment' => false,
+        'increment_style' => false,
         // additional rules
         'array_syntax' => array('syntax' => 'short'),
         'general_phpdoc_annotation_remove' => array('annotations' => array('@author', '@inheritdoc')),
